@@ -1,0 +1,3 @@
+Hello, world!
+Data from:
+GNU Make is running this pipeline.
