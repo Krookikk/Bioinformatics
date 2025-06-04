@@ -1,0 +1,23 @@
+make clean
+make
+cat results/check.txt
+rm -f results/SRR32912200.sam results/SRR32912200.bam results/SRR32912200.sorted.bam results/SRR32912200.sorted.bam.bai results/flagstat.txt results/check.txt
+minimap2 -ax map-ont results/ecoli_ref.mmi data/SRR32912200.fastq.gz > results/SRR32912200.sam
+[M::main::0.414*0.22] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.452*0.25] mid_occ = 12
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 1
+[M::mm_idx_stat::0.465*0.26] distinct minimizers: 838542 (98.18% are singletons); average occurrences: 1.034; average spacing: 5.352; total length: 4641652
+[M::worker_pipeline::137.489*1.68] mapped 70456 sequences
+[M::worker_pipeline::142.751*1.68] mapped 6395 sequences
+[M::main] Version: 2.26-r1175
+[M::main] CMD: minimap2 -ax map-ont results/ecoli_ref.mmi data/SRR32912200.fastq.gz
+[M::main] Real time: 143.139 sec; CPU: 239.192 sec; Peak RSS: 1.922 GB
+samtools view -S -b results/SRR32912200.sam > results/SRR32912200.bam
+samtools sort results/SRR32912200.bam -o results/SRR32912200.sorted.bam
+[bam_sort_core] merging from 1 files and 1 in-memory blocks...
+samtools flagstat results/SRR32912200.sorted.bam > results/flagstat.txt
+bash scripts/parse_flagstat.sh results/flagstat.txt > results/check.txt
+Mapped: 76.71
+57.94%
+Result: OK
+
